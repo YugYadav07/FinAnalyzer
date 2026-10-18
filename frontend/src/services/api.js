@@ -1,7 +1,11 @@
 import axios from 'axios';
 
+const rawBase = import.meta.env.VITE_API_BASE_URL || '/api';
+const cleanBase = rawBase.trim().replace(/\/+$/, '');
+export const API_BASE_URL = cleanBase.endsWith('/api') ? cleanBase : `${cleanBase}/api`;
+
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: API_BASE_URL,
   timeout: 30000,
 });
 
@@ -27,7 +31,7 @@ export const endpoints = {
   clearAllTransactions: () => api.delete('/transactions/clear-all'),
   exportTransactionsUrl: (params) => {
     const query = new URLSearchParams(params).toString();
-    return `/api/transactions/export?${query}`;
+    return `${API_BASE_URL}/transactions/export?${query}`;
   },
 
   // Upload

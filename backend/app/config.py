@@ -7,6 +7,7 @@ class Settings(BaseSettings):
     APP_NAME: str = "Personal Finance Analyzer"
     DATABASE_URL: str = "sqlite:///./finance.db"
     DEBUG: bool = True
+    CORS_ORIGINS: str = ""
 
     class Config:
         env_file = os.path.join(os.path.dirname(os.path.dirname(__file__)), ".env")
